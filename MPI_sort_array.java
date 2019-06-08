@@ -10,12 +10,12 @@ public class Scatter_Gather_Sort_Array{
         int M = 15;
         int root = 0;
         if(rank == root)
-            System.out.println("Количество процессов: " + size);
+            System.out.println("ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°Г®Г¶ГҐГ±Г±Г®Гў: " + size);
         byte[][] send = new byte[N][M];
         byte[] recv = new byte[M];
         MPI.COMM_WORLD.Barrier();
         if (rank == root) {
-            System.out.println("Отправляем");
+            System.out.println("ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬");
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < M; j++) {
                     send[i][j] = (byte) (1 + new Random().nextInt(10));
@@ -23,7 +23,7 @@ public class Scatter_Gather_Sort_Array{
                 }
                 System.out.println();
             }
-            System.out.println("Сортируем");
+            System.out.println("Г‘Г®Г°ГІГЁГ°ГіГҐГ¬");
         }
         if (rank == root) {
             if (size >= N)
@@ -35,7 +35,7 @@ public class Scatter_Gather_Sort_Array{
                         Arrays.sort(send[i]);
                         System.out.println(Arrays.toString(send[i]) + " Rank: " + rank + ", Time: " + (System.currentTimeMillis() - a));
                     }
-                    System.out.println("Собираем");
+                    System.out.println("Г‘Г®ГЎГЁГ°Г ГҐГ¬");
                     for (int i = 0; i < N; i++) {
                         for (int j = 0; j < M; j++) {
                             System.out.print(send[i][j] + "\t");
@@ -66,7 +66,7 @@ public class Scatter_Gather_Sort_Array{
             }
 
             if (rank == root) {
-                System.out.println("Собираем ");
+                System.out.println("Г‘Г®ГЎГЁГ°Г ГҐГ¬ ");
                 for (int i = 0; i < N; i++) {
                     for (int j = 0; j < M; j++) {
                         System.out.print(send[i][j] + "\t");
@@ -94,7 +94,7 @@ public class Scatter_Gather_Sort_Array{
 
                     for (int i = 0; i < 2; i++)
                         MPI.COMM_WORLD.Recv(send[count2++], 0, M, MPI.BYTE, i, 3);
-                    System.out.println("Собираем");
+                    System.out.println("Г‘Г®ГЎГЁГ°Г ГҐГ¬");
                     for (int i = 0; i < N; i++) {
                         for (int j = 0; j < M; j++) {
                             System.out.print(send[i][j] + "\t");
